@@ -1,0 +1,7 @@
+[package]
+name = "microbrust"
+version = "0.1.0"
+authors = ["Jakub Matraszek <jakub.matraszek@gmail.com>"]
+
+[dependencies]
+midir = "0.2.0"
