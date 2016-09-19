@@ -1,18 +1,42 @@
-pub struct State {
-    note_priority: String,
-    velocity_response: String,
-    play: String,
-    seq_retrig: String,
-    next_seq: String,
-    step_on: String,
-    step: String,
-    lfo_key_retrig: String,
-    env_legato_mode: String,
-    gate: String,
-    sync: String,
-    bend_range: String,
-    midi_recv_chan: String,
-    midi_send_chan: String,
+// pub struct MicrobruteMidi {
+//     input: MidiInput,
+//     output: MidiOutput,
+//     state: State
+// }
+
+pub struct MicrobruteState<'a> {
+    pub note_priority: &'a str,
+    pub velocity_response: &'a str,
+    pub play: &'a str,
+    pub seq_retrig: &'a str,
+    pub next_seq: &'a str,
+    pub step_on: &'a str,
+    pub step: &'a str,
+    pub lfo_key_retrig: &'a str,
+    pub env_legato_mode: &'a str,
+    pub gate: &'a str,
+    pub sync: &'a str,
+    pub bend_range: &'a str,
+    pub midi_recv_chan: &'a str,
+    pub midi_send_chan: &'a str,
+}
+
+pub fn print_microbrute_state(state: &MicrobruteState) {
+  println!("ARTURIA MICROBRUTE STATE");
+  println!("Note priority: {}", state.note_priority);
+  println!("Velocity response: {}", state.velocity_response);
+  println!("Play: {}", state.play);
+  println!("Sequence retrig: {}", state.seq_retrig);
+  println!("Next sequence: {}", state.next_seq);
+  println!("Step on: {}", state.step_on);
+  println!("Step: {}", state.step);
+  println!("LFO key retrig: {}", state.lfo_key_retrig);
+  println!("Env legatio mode: {}", state.env_legato_mode);
+  println!("Gate: {}", state.gate);
+  println!("Sync: {}", state.sync);
+  println!("Bend range: {}", state.bend_range);
+  println!("MIDI receive channel: {}", state.midi_recv_chan);
+  println!("MIDI send channel: {}", state.midi_send_chan);
 }
 
 pub fn start_communication_command() -> Vec<u8> {
@@ -74,6 +98,25 @@ pub fn set_command(counter: u8, command_type: &str, value: &str) -> Vec<u8> {
         _value(command_type, value),
         0xf7
     ]
+}
+
+pub fn read_note_priority(value: u8) -> &'static str {
+  match(value) {
+    0x00 => "LAST",
+    0x01 => "LOW",
+    0x02 => "HIGH",
+    _    => "UNKNOWN"
+  }
+}
+
+pub fn set_microbrute_state(state: &mut MicrobruteState, message: &[u8]) {
+    match(message[8]) {
+      0x0b => {
+        println!("NOTE PRIORITY: {}", read_note_priority(message[9]));
+        state.note_priority = &read_note_priority(message[9])
+      },
+      _ => ()
+    }
 }
 
 fn _command_type(command_type: &str) -> u8 {
