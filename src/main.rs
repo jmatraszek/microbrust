@@ -1,6 +1,7 @@
 extern crate midir;
 
 mod microbrute;
+mod state;
 mod utils;
 
 use std::thread::sleep;
@@ -8,6 +9,7 @@ use std::time::Duration;
 use std::error::Error;
 use std::env;
 use midir::{MidiInput, MidiOutput};
+use state::State;
 
 fn main() {
     match run() {
@@ -17,22 +19,7 @@ fn main() {
 }
 
 fn run() -> Result<(), Box<Error>> {
-    let mut state = microbrute::MicrobruteState {
-        note_priority: "UNKNOWN",
-        velocity_response: "UNKNOWN",
-        play: "UNKNOWN",
-        seq_retrig: "UNKNOWN",
-        next_seq: "UNKNOWN",
-        step_on: "UNKNOWN",
-        step: "UNKNOWN",
-        lfo_key_retrig: "UNKNOWN",
-        env_legato_mode: "UNKNOWN",
-        gate: "UNKNOWN",
-        sync: "UNKNOWN",
-        bend_range: "UNKNOWN",
-        midi_recv_chan: "UNKNOWN",
-        midi_send_chan: "UNKNOWN",
-    };
+    let mut state = state::State::new();
 
     let midi_out = try!(MidiOutput::new("Arturia Microbrute"));
     let out_port: u32 = get_midi_out_port(&midi_out);
@@ -57,17 +44,17 @@ fn run() -> Result<(), Box<Error>> {
     let (midi_in_, state) = conn_in.close();
     midi_in = midi_in_;
 
-    microbrute::print_microbrute_state(&state);
+    microbrute::print_state(&state);
     try!(conn_out.send(&microbrute::set_command(counter, "NOTE_PRIORITY", "LAST")));
     sleep(Duration::from_millis(100));
     try!(conn_out.send(&microbrute::set_command(counter, "MIDI_RECV_CHAN", "9")));
     // try!(conn_out.send(&microbrute::set_command(1, "VELOCITY_RESPONSE", "/")));
-    // microbrute::print_microbrute_state(&state);
+    // microbrute::print_state(&state);
 
     Ok(())
 }
 
-fn handle_incoming_midi_message(state: &mut microbrute::MicrobruteState, message: &[u8]) {
+fn handle_incoming_midi_message(state: &mut State, message: &[u8]) {
     match is_sysex_message(message) {
         true => handle_sysex_message(state, message),
         false => (),
@@ -99,7 +86,7 @@ fn is_sysex_state_response(message: &[u8]) -> bool {
     }
 }
 
-fn handle_sysex_state_response(state: &mut microbrute::MicrobruteState, message: &[u8]) {
+fn handle_sysex_state_response(state: &mut State, message: &[u8]) {
     match env::var("DEBUG_MESSAGES") {
         Ok(_) => println!("State response: {:02x}: {:02x}", message[8], message[9]),
         Err(_) => (),
@@ -107,7 +94,7 @@ fn handle_sysex_state_response(state: &mut microbrute::MicrobruteState, message:
     microbrute::set_microbrute_state(state, message);
 }
 
-fn handle_sysex_message(state: &mut microbrute::MicrobruteState, message: &[u8]) {
+fn handle_sysex_message(state: &mut State, message: &[u8]) {
     match env::var("DEBUG_MESSAGES") {
         Ok(_) => println!("{} (len = {})", utils::to_hex_string(&message), message.len()),
         Err(_) => (),

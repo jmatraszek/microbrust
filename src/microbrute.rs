@@ -3,25 +3,9 @@
 //     output: MidiOutput,
 //     state: State
 // }
+use state::State;
 
-pub struct MicrobruteState<'a> {
-    pub note_priority: &'a str,
-    pub velocity_response: &'a str,
-    pub play: &'a str,
-    pub seq_retrig: &'a str,
-    pub next_seq: &'a str,
-    pub step_on: &'a str,
-    pub step: &'a str,
-    pub lfo_key_retrig: &'a str,
-    pub env_legato_mode: &'a str,
-    pub gate: &'a str,
-    pub sync: &'a str,
-    pub bend_range: &'a str,
-    pub midi_recv_chan: &'a str,
-    pub midi_send_chan: &'a str,
-}
-
-pub fn print_microbrute_state(state: &MicrobruteState) {
+pub fn print_state(state: &State) { // UI
     println!("ARTURIA MICROBRUTE STATE");
     println!("Note priority: {}", state.note_priority);
     println!("Velocity response: {}", state.velocity_response);
@@ -259,49 +243,49 @@ pub fn read_midi_send_chan(value: u8) -> &'static str {
     }
 }
 
-pub fn set_microbrute_state(state: &mut MicrobruteState, message: &[u8]) {
-    match(message[8]) {
+pub fn set_microbrute_state(state: &mut State, message: &[u8]) {
+    match message[8] {
         0x0b => {
-            state.note_priority = &read_note_priority(message[9])
+            state.set("note_priority", &read_note_priority(message[9]))
         },
         0x11 => {
-            state.velocity_response = &read_velocity_response(message[9])
+            state.set("velocity_response", &read_velocity_response(message[9]))
         },
         0x2e => {
-            state.play = &read_play(message[9])
+            state.set("play", &read_play(message[9]))
         },
         0x34 => {
-            state.seq_retrig = &read_seq_retrig(message[9])
+            state.set("seq_retrig", &read_seq_retrig(message[9]))
         },
         0x32 => {
-            state.next_seq = &read_next_seq(message[9])
+            state.set("next_seq", &read_next_seq(message[9]))
         },
         0x2a => {
-            state.step_on = &read_step_on(message[9])
+            state.set("step_on", &read_step_on(message[9]))
         },
         0x38 => {
-            state.step = &read_step(message[9])
+            state.set("step", &read_step(message[9]))
         },
         0x0f => {
-            state.lfo_key_retrig = &read_lfo_key_retrig(message[9])
+            state.set("lfo_key_retrig", &read_lfo_key_retrig(message[9]))
         },
         0x0d => {
-            state.env_legato_mode = &read_env_legato_mode(message[9])
+            state.set("env_legato_mode", &read_env_legato_mode(message[9]))
         },
         0x36 => {
-            state.gate = &read_gate(message[9])
+            state.set("gate", &read_gate(message[9]))
         },
         0x3c => {
-            state.sync = &read_sync(message[9])
+            state.set("sync", &read_sync(message[9]))
         },
         0x2c => {
-            state.bend_range = &read_bend_range(message[9])
+            state.set("bend_range", &read_bend_range(message[9]))
         },
         0x05 => {
-            state.midi_recv_chan = &read_midi_recv_chan(message[9])
+            state.set("midi_recv_chan", &read_midi_recv_chan(message[9]))
         },
         0x07 => {
-            state.midi_send_chan = &read_midi_send_chan(message[9])
+            state.set("midi_send_chan", &read_midi_send_chan(message[9]))
         },
         _ => ()
     }
