@@ -291,6 +291,54 @@ pub fn set_microbrute_state(state: &mut State, message: &[u8]) {
     }
 }
 
+pub fn decode_microbrute_state(message: &[u8]) -> (&'static str, &'static str) {
+    match message[8] {
+        0x0b => {
+            ("note_priority", read_note_priority(message[9]))
+        },
+        0x11 => {
+            ("velocity_response", read_velocity_response(message[9]))
+        },
+        0x2e => {
+            ("play", read_play(message[9]))
+        },
+        0x34 => {
+            ("seq_retrig", read_seq_retrig(message[9]))
+        },
+        0x32 => {
+            ("next_seq", read_next_seq(message[9]))
+        },
+        0x2a => {
+            ("step_on", read_step_on(message[9]))
+        },
+        0x38 => {
+            ("step", read_step(message[9]))
+        },
+        0x0f => {
+            ("lfo_key_retrig", read_lfo_key_retrig(message[9]))
+        },
+        0x0d => {
+            ("env_legato_mode", read_env_legato_mode(message[9]))
+        },
+        0x36 => {
+            ("gate", read_gate(message[9]))
+        },
+        0x3c => {
+            ("sync", read_sync(message[9]))
+        },
+        0x2c => {
+            ("bend_range", read_bend_range(message[9]))
+        },
+        0x05 => {
+            ("midi_recv_chan", read_midi_recv_chan(message[9]))
+        },
+        0x07 => {
+            ("midi_send_chan", read_midi_send_chan(message[9]))
+        },
+        _ => ("UNKNOWN", "UNKNOWN")
+    }
+}
+
 fn _command_type(command_type: &str) -> u8 {
     match command_type {
         "NOTE_PRIORITY" => 0x0b,
