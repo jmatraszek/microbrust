@@ -5,6 +5,7 @@ mod midi_interface;
 
 use std::error::Error;
 use state::State;
+use midi_interface::MidiInterface;
 
 fn main() {
     match run() {
@@ -14,17 +15,16 @@ fn main() {
 }
 
 fn run() -> Result<(), Box<Error>> {
-    let mut state = state::State::new();
-    let mut midi_interface = midi_interface::MidiInterface::new();
-    state = try!(midi_interface.update_state(state));
+    let mut state = State::new();
+    let mut midi_interface = MidiInterface::new();
+    state = midi_interface.read_state(state).unwrap();
 
     microbrute::print_state(&state);
-    // try!(conn_out.send(&microbrute::set_command(counter, "NOTE_PRIORITY", "LAST")));
-    // sleep(Duration::from_millis(100));
-    // try!(conn_out.send(&microbrute::set_command(counter, "MIDI_RECV_CHAN", "9")));
-    // try!(conn_out.send(&microbrute::set_command(1, "VELOCITY_RESPONSE", "/")));
-    // microbrute::print_state(&state);
-
+    state = midi_interface.set_state("note_priority", "last", state).unwrap();
+    state = midi_interface.set_state("play", "note_on", state).unwrap();
+    microbrute::print_state(&state);
+    state = midi_interface.read_state(state).unwrap();
+    microbrute::print_state(&state);
     Ok(())
 }
 
