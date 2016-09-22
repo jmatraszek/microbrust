@@ -1,14 +1,14 @@
 extern crate midir;
 
+mod response_handler;
+
 use self::midir::{MidiInput, MidiOutput};
 use std::error::Error;
 use std::result::Result;
 use std::thread::sleep;
 use std::time::Duration;
-use std::env;
 use state::State;
 use microbrute;
-use utils;
 
 pub struct Interface {
     pub counter: u8
@@ -29,7 +29,7 @@ impl Interface {
         let midi_in = try!(MidiInput::new("Arturia Microbrute"));
         let in_port: u32 = Interface::get_midi_in_port(&midi_in);
         let conn_in = try!(midi_in.connect(in_port, "microbrute", |_, message, state| {
-            handle_incoming_midi_message(state, message)
+            response_handler::handle_incoming_midi_message(state, message)
         }, state).map_err(|e| e.kind()));
 
         try!(conn_out.send(&microbrute::start_communication_command()));
@@ -94,53 +94,3 @@ impl Interface {
     }
 }
 
-fn handle_incoming_midi_message(state: &mut State, message: &[u8]) {
-    match is_sysex_message(message) {
-        true => handle_sysex_message(state, message),
-        false => (),
-    }
-}
-
-fn is_sysex_message(message: &[u8]) -> bool {
-    let len: usize = message.len();
-    if message[0] == 0xf0 && message[len-1] == 0xf7 {
-        true
-    }
-    else {
-        false
-    }
-}
-
-fn is_sysex_state_response(message: &[u8]) -> bool {
-    if message[1] == 0x00 && // Arturia's ID
-        message[2] == 0x20 && // Arturia's ID
-            message[3] == 0x6b && // Arturia's ID
-            message[4] == 0x05 && // Microbrute's ID
-            message[5] == 0x01 &&
-            message[7] == 0x01
-            {
-                true
-            }
-    else {
-        false
-    }
-}
-
-fn handle_sysex_message(state: &mut State, message: &[u8]) {
-    match env::var("DEBUG_MESSAGES") {
-        Ok(_) => println!("{} (len = {})", utils::to_hex_string(&message), message.len()),
-        Err(_) => (),
-    }
-    match is_sysex_state_response(message) {
-        true => handle_sysex_state_response(state, message),
-        false => (),
-    }
-}
-
-fn handle_sysex_state_response(state: &mut State, message: &[u8]) {
-    match env::var("DEBUG_MESSAGES") {
-        Ok(_) => println!("State response: {:02x}: {:02x}", message[8], message[9]),
-        Err(_) => (),
-    }
-    microbrute::set_microbrute_state(state, message);
-}
