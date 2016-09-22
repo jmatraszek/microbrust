@@ -1,6 +1,7 @@
 extern crate midir;
 
 mod response_handler;
+mod request_handler;
 
 use self::midir::{MidiInput, MidiOutput};
 use std::error::Error;
@@ -8,7 +9,6 @@ use std::result::Result;
 use std::thread::sleep;
 use std::time::Duration;
 use state::State;
-use microbrute;
 
 pub struct Interface {
     pub counter: u8
@@ -32,11 +32,11 @@ impl Interface {
             response_handler::handle_incoming_midi_message(state, message)
         }, state).map_err(|e| e.kind()));
 
-        try!(conn_out.send(&microbrute::start_communication_command()));
+        try!(conn_out.send(&request_handler::start_communication_command()));
         sleep(Duration::from_millis(100));
         self.counter = 0;
-        for cmd in microbrute::init_data() {
-            try!(conn_out.send(&microbrute::init_command(self.counter, cmd)));
+        for cmd in request_handler::init_data() {
+            try!(conn_out.send(&request_handler::init_command(self.counter, cmd)));
             sleep(Duration::from_millis(100));
             self.counter += 1;
         }
@@ -48,7 +48,7 @@ impl Interface {
         let midi_out = try!(MidiOutput::new("Arturia Microbrute"));
         let out_port: u32 = Interface::get_midi_out_port(&midi_out);
         let mut conn_out = try!(midi_out.connect(out_port, "microbrute").map_err(|e| e.kind()));
-        try!(conn_out.send(&microbrute::set_command(self.counter, param, value)));
+        try!(conn_out.send(&request_handler::set_command(self.counter, param, value)));
         sleep(Duration::from_millis(100));
         state.set(param, value);
         self.counter += 1;
