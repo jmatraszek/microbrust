@@ -20,10 +20,8 @@ fn run() -> Result<(), Box<Error>> {
     state = midi_interface.read_state(state).unwrap();
 
     state.print();
-    state = midi_interface.set_state("note_priority", "last", state).unwrap();
-    state = midi_interface.set_state("play", "note_on", state).unwrap();
-    state.print();
-    state = midi_interface.read_state(state).unwrap();
+    state = midi_interface.set_state("note_priority", "Last", state).unwrap();
+    state = midi_interface.set_state("play", "Note on", state).unwrap();
     state.print();
     Ok(())
 }

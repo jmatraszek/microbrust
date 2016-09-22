@@ -62,10 +62,10 @@ pub fn set_command(counter: u8, command_type: &str, value: &str) -> Vec<u8> {
 
 pub fn read_note_priority(value: u8) -> &'static str {
     match value {
-        0x00 => "LAST",
-        0x01 => "LOW",
-        0x02 => "HIGH",
-        _    => "UNKNOWN"
+        0x00 => "Last",
+        0x01 => "Low",
+        0x02 => "High",
+        _    => "Unknown"
     }
 }
 
@@ -74,41 +74,41 @@ pub fn read_velocity_response(value: u8) -> &'static str {
         0x00 => "/",
         0x01 => "(",
         0x02 => ")",
-        _    => "UNKNOWN"
+        _    => "Unknown"
     }
 }
 
 pub fn read_play(value: u8) -> &'static str {
     match value {
-        0x00 => "HOLD",
-        0x01 => "NOTE ON",
-        _    => "UNKNOWN"
+        0x00 => "Hold",
+        0x01 => "Note on",
+        _    => "Unknown"
     }
 }
 
 pub fn read_seq_retrig(value: u8) -> &'static str {
     match value {
-        0x00 => "RESET",
-        0x01 => "LEGATO",
-        0x02 => "NONE",
-        _    => "UNKNOWN"
+        0x00 => "Reset",
+        0x01 => "Legato",
+        0x02 => "None",
+        _    => "Unknown"
     }
 }
 
 pub fn read_next_seq(value: u8) -> &'static str {
     match value {
-        0x00 => "END",
-        0x01 => "INSTANT RESET",
-        0x02 => "INSTANT CONTINUE",
-        _    => "UNKNOWN"
+        0x00 => "End",
+        0x01 => "Instant reset",
+        0x02 => "Instant continue",
+        _    => "Unknown"
     }
 }
 
 pub fn read_step_on(value: u8) -> &'static str {
     match value {
-        0x00 => "CLK",
-        0x01 => "GATE",
-        _    => "UNKNOWN"
+        0x00 => "Clk",
+        0x01 => "Gate",
+        _    => "Unknown"
     }
 }
 
@@ -118,41 +118,41 @@ pub fn read_step(value: u8) -> &'static str {
         0x08 => "1/8",
         0x10 => "1/16",
         0x20 => "1/32",
-        _    => "UNKNOWN"
+        _    => "Unknown"
     }
 }
 
 pub fn read_lfo_key_retrig(value: u8) -> &'static str {
     match value {
-        0x00 => "OFF",
-        0x01 => "ON",
-        _    => "UNKNOWN"
+        0x00 => "Off",
+        0x01 => "On",
+        _    => "Unknown"
     }
 }
 
 pub fn read_env_legato_mode(value: u8) -> &'static str {
     match value {
-        0x00 => "OFF",
-        0x01 => "ON",
-        _    => "UNKNOWN"
+        0x00 => "Off",
+        0x01 => "On",
+        _    => "Unknown"
     }
 }
 
 pub fn read_gate(value: u8) -> &'static str {
     match value {
-        0x01 => "SHORT",
-        0x02 => "MEDIUM",
-        0x03 => "LONG",
-        _    => "UNKNOWN"
+        0x01 => "Short",
+        0x02 => "Medium",
+        0x03 => "Long",
+        _    => "Unknown"
     }
 }
 
 pub fn read_sync(value: u8) -> &'static str {
     match value {
-        0x00 => "AUTO",
-        0x01 => "INTERNAL",
-        0x02 => "EXTERNAL",
-        _    => "UNKNOWN"
+        0x00 => "Auto",
+        0x01 => "Internal",
+        0x02 => "External",
+        _    => "Unknown"
     }
 }
 
@@ -170,7 +170,7 @@ pub fn read_bend_range(value: u8) -> &'static str {
         0x0a => "10",
         0x0b => "11",
         0x0c => "12",
-        _    => "UNKNOWN"
+        _    => "Unknown"
     }
 }
 
@@ -192,8 +192,8 @@ pub fn read_midi_recv_chan(value: u8) -> &'static str {
         0x0d => "14",
         0x0e => "15",
         0x0f => "16",
-        0x10 => "ALL",
-        _    => "UNKNOWN"
+        0x10 => "All",
+        _    => "Unknown"
     }
 }
 
@@ -215,7 +215,7 @@ pub fn read_midi_send_chan(value: u8) -> &'static str {
         0x0d => "14",
         0x0e => "15",
         0x0f => "16",
-        _    => "UNKNOWN"
+        _    => "Unknown"
     }
 }
 
@@ -309,9 +309,9 @@ fn _value(command_type: &str, value: &str) -> u8 {
 
 fn note_priority_value(value: &str) -> u8 {
     match value {
-        "last" => 0x00,
-        "low" => 0x01,
-        "high" => 0x02,
+        "Last" => 0x00,
+        "Low" => 0x01,
+        "High" => 0x02,
         _ => panic!("Unknown note priority value!")
     }
 }
@@ -327,34 +327,34 @@ fn velocity_response_value(value: &str) -> u8 {
 
 fn play_value(value: &str) -> u8 {
     match value {
-        "hold" => 0x00,
-        "note_on" => 0x01,
+        "Hold" => 0x00,
+        "Note on" => 0x01,
         _ => panic!("Unknown play value!")
     }
 }
 
 fn seq_retrig_value(value: &str) -> u8 {
     match value {
-        "reset" => 0x00,
-        "legato" => 0x01,
-        "none" => 0x02,
+        "Reset" => 0x00,
+        "Legato" => 0x01,
+        "None" => 0x02,
         _ => panic!("Unknown seq retrig value!")
     }
 }
 
 fn next_seq(value: &str) -> u8 {
     match value {
-        "end" => 0x00,
-        "instant_reset" => 0x01,
-        "instant_cont" => 0x02,
+        "End" => 0x00,
+        "Instant reset" => 0x01,
+        "Instant continue" => 0x02,
         _ => panic!("Unknown next seq value!")
     }
 }
 
 fn step_on_value(value: &str) -> u8 {
     match value {
-        "clk" => 0x00,
-        "gate" => 0x01,
+        "Clk" => 0x00,
+        "Gate" => 0x01,
         _ => panic!("Unknown step on vlaue!")
     }
 }
@@ -371,34 +371,34 @@ fn step_value(value: &str) -> u8 {
 
 fn lfo_key_retrig_value(value: &str) -> u8 {
     match value {
-        "off" => 0x00,
-        "on" => 0x01,
+        "Off" => 0x00,
+        "On" => 0x01,
         _ => panic!("Unknown LFO key retrig value!")
     }
 }
 
 fn env_legato_mode_value(value: &str) -> u8 {
     match value {
-        "off" => 0x00,
-        "on" => 0x01,
+        "Off" => 0x00,
+        "On" => 0x01,
         _ => panic!("Unknown env legato mode value!")
     }
 }
 
 fn gate_value(value: &str) -> u8 {
     match value {
-        "short" => 0x01,
-        "medium" => 0x02,
-        "long" => 0x03,
+        "Short" => 0x01,
+        "Medium" => 0x02,
+        "Long" => 0x03,
         _ => panic!("Unknown gate value!")
     }
 }
 
 fn sync_value(value: &str) -> u8 {
     match value {
-        "auto" => 0x00,
-        "internal" => 0x01,
-        "external" => 0x02,
+        "Auto" => 0x00,
+        "Internal" => 0x01,
+        "External" => 0x02,
         _ => panic!("Unknown sync value!")
     }
 }
@@ -439,7 +439,7 @@ fn midi_recv_chan_value(value: &str) -> u8 {
         "14" => 0x0d,
         "15" => 0x0e,
         "16" => 0x0f,
-        "ALL" => 0x10,
+        "All" => 0x10,
         _ => panic!("Unknown MIDI receive channel value!")
     }
 }
