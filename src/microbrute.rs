@@ -1,23 +1,4 @@
 use state::State;
-
-pub fn print_state(state: &State) { // UI
-    println!("ARTURIA MICROBRUTE STATE");
-    println!("Note priority: {}", state.note_priority);
-    println!("Velocity response: {}", state.velocity_response);
-    println!("Play: {}", state.play);
-    println!("Sequence retrig: {}", state.seq_retrig);
-    println!("Next sequence: {}", state.next_seq);
-    println!("Step on: {}", state.step_on);
-    println!("Step: {}", state.step);
-    println!("LFO key retrig: {}", state.lfo_key_retrig);
-    println!("Env legatio mode: {}", state.env_legato_mode);
-    println!("Gate: {}", state.gate);
-    println!("Sync: {}", state.sync);
-    println!("Bend range: {}", state.bend_range);
-    println!("MIDI receive channel: {}", state.midi_recv_chan);
-    println!("MIDI send channel: {}", state.midi_send_chan);
-}
-
 pub fn start_communication_command() -> Vec<u8> {
     vec![
         0xf0,
