@@ -10,24 +10,24 @@ use state::State;
 use microbrute;
 use utils;
 
-pub struct MidiInterface {
+pub struct Interface {
     pub counter: u8
 }
 
-impl MidiInterface {
-    pub fn new() -> MidiInterface {
-        MidiInterface {
+impl Interface {
+    pub fn new() -> Interface {
+        Interface {
             counter: 0
         }
     }
 
     pub fn read_state<'a, 'b>(&'a mut self, state: State<'static>) -> Result<State<'b>, Box<Error>> {
         let midi_out = try!(MidiOutput::new("Arturia Microbrute"));
-        let out_port: u32 = MidiInterface::get_midi_out_port(&midi_out);
+        let out_port: u32 = Interface::get_midi_out_port(&midi_out);
         let mut conn_out = try!(midi_out.connect(out_port, "microbrute").map_err(|e| e.kind()));
 
         let midi_in = try!(MidiInput::new("Arturia Microbrute"));
-        let in_port: u32 = self.get_midi_in_port(&midi_in);
+        let in_port: u32 = Interface::get_midi_in_port(&midi_in);
         let conn_in = try!(midi_in.connect(in_port, "microbrute", |_, message, state| {
             handle_incoming_midi_message(state, message)
         }, state).map_err(|e| e.kind()));
@@ -46,7 +46,7 @@ impl MidiInterface {
 
     pub fn set_state<'a, 'b>(&'a mut self, param: &'b str, value: &'b str, mut state: State<'b>) -> Result<State<'b>, Box<Error>> {
         let midi_out = try!(MidiOutput::new("Arturia Microbrute"));
-        let out_port: u32 = MidiInterface::get_midi_out_port(&midi_out);
+        let out_port: u32 = Interface::get_midi_out_port(&midi_out);
         let mut conn_out = try!(midi_out.connect(out_port, "microbrute").map_err(|e| e.kind()));
         try!(conn_out.send(&microbrute::set_command(self.counter, param, value)));
         sleep(Duration::from_millis(100));
@@ -74,7 +74,7 @@ impl MidiInterface {
         }
     }
 
-    fn get_midi_in_port(&self, midi_in: &MidiInput) -> u32 {
+    fn get_midi_in_port(midi_in: &MidiInput) -> u32 {
         let mut in_port: Option<u32> = None;
 
         for i in 0..midi_in.port_count() {

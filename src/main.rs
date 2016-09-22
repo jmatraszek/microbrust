@@ -1,11 +1,11 @@
 mod utils;
 mod microbrute;
 mod state;
-mod midi_interface;
+mod interface;
 
 use std::error::Error;
 use state::State;
-use midi_interface::MidiInterface;
+use interface::Interface;
 
 fn main() {
     match run() {
@@ -16,7 +16,7 @@ fn main() {
 
 fn run() -> Result<(), Box<Error>> {
     let mut state = State::new();
-    let mut midi_interface = MidiInterface::new();
+    let mut midi_interface = Interface::new();
     state = midi_interface.read_state(state).unwrap();
 
     state.print();
