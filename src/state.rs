@@ -37,20 +37,20 @@ impl<'a> State<'a> {
 
     pub fn print(&self) {
         println!("ARTURIA MICROBRUTE STATE");
-        println!("Note priority: {}", self.note_priority);
-        println!("Velocity response: {}", self.velocity_response);
-        println!("Play: {}", self.play);
-        println!("Sequence retrig: {}", self.seq_retrig);
-        println!("Next sequence: {}", self.next_seq);
-        println!("Step on: {}", self.step_on);
-        println!("Step: {}", self.step);
-        println!("LFO key retrig: {}", self.lfo_key_retrig);
-        println!("Env legatio mode: {}", self.env_legato_mode);
-        println!("Gate: {}", self.gate);
-        println!("Sync: {}", self.sync);
-        println!("Bend range: {}", self.bend_range);
-        println!("MIDI receive channel: {}", self.midi_recv_chan);
-        println!("MIDI send channel: {}", self.midi_send_chan);
+        println!("[n] Note priority: {}", self.note_priority);
+        println!("[v] Velocity response: {}", self.velocity_response);
+        println!("[p] Play: {}", self.play);
+        println!("[x] Next sequence: {}", self.next_seq);
+        println!("[q] Sequence retrig: {}", self.seq_retrig);
+        println!("[t] Step: {}", self.step);
+        println!("[o] Step on: {}", self.step_on);
+        println!("[l] LFO key retrig: {}", self.lfo_key_retrig);
+        println!("[e] Env legatio mode: {}", self.env_legato_mode);
+        println!("[g] Gate: {}", self.gate);
+        println!("[y] Sync: {}", self.sync);
+        println!("[b] Bend range: {}", self.bend_range);
+        println!("[r] MIDI receive channel: {}", self.midi_recv_chan);
+        println!("[s] MIDI send channel: {}", self.midi_send_chan);
     }
 
 
