@@ -10,8 +10,7 @@ use std::default::Default;
 use state::State;
 use interface::Interface;
 
-use rustbox::{Color, RustBox};
-use rustbox::Key;
+use rustbox::{Key, RustBox};
 
 fn main() {
     match run() {
@@ -25,36 +24,63 @@ fn run() -> Result<(), Box<Error>> {
     let mut midi_interface = Interface::new();
     state = midi_interface.read_state(state).unwrap();
 
+    state = midi_interface.set_state(state, "note_priority", "Last").unwrap();
     let rustbox = match RustBox::init(Default::default()) {
         Result::Ok(v) => v,
         Result::Err(e) => panic!("{}", e),
     };
 
-    rustbox.print(1, 1, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::title());
-    rustbox.print(1, 2, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::note_priority(&state).as_ref());
-    rustbox.print(1, 3, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::velocity_response(&state).as_ref());
-    rustbox.print(1, 4, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::play(&state).as_ref());
-    rustbox.print(1, 5, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::next_seq(&state).as_ref());
-    rustbox.print(1, 6, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::seq_retrig(&state).as_ref());
-    rustbox.print(1, 7, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::step(&state).as_ref());
-    rustbox.print(1, 8, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::step_on(&state).as_ref());
-    rustbox.print(1, 9, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::lfo_key_retrig(&state).as_ref());
-    rustbox.print(1, 10, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::env_legato_mode(&state).as_ref());
-    rustbox.print(1, 11, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::gate(&state).as_ref());
-    rustbox.print(1, 12, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::sync(&state).as_ref());
-    rustbox.print(1, 13, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::bend_range(&state).as_ref());
-    rustbox.print(1, 14, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::midi_recv_chan(&state).as_ref());
-    rustbox.print(1, 15, rustbox::RB_BOLD, Color::White, Color::Black, ui::helpers::midi_send_chan(&state).as_ref());
-    rustbox.print(1, 16, rustbox::RB_BOLD, Color::White, Color::Black,
-                  "Press 'q' to quit.");
-    rustbox.present();
+    ui::print_state(&rustbox, &state);
     loop {
         match rustbox.poll_event(false) {
             Ok(rustbox::Event::KeyEvent(key)) => {
                 match key {
-                    Key::Char('q') => { break; }
+                    Key::Esc => { break; } // Quit
+                    Key::Char('n') => {
+                        state = midi_interface.set_state(state, "note_priority", "Low").unwrap();
+                    }
+                    Key::Char('v') => {
+
+                    }
+                    Key::Char('p') => {
+
+                    }
+                    Key::Char('x') => {
+
+                    }
+                    Key::Char('q') => {
+
+                    }
+                    Key::Char('t') => {
+
+                    }
+                    Key::Char('o') => {
+
+                    }
+                    Key::Char('l') => {
+
+                    }
+                    Key::Char('e') => {
+
+                    }
+                    Key::Char('g') => {
+
+                    }
+                    Key::Char('y') => {
+
+                    }
+                    Key::Char('b') => {
+
+                    }
+                    Key::Char('r') => {
+
+                    }
+                    Key::Char('s') => {
+
+                    }
                     _ => { }
                 }
+                ui::print_state(&rustbox, &state);
             },
             Err(e) => panic!("{}", e.description()),
             _ => { }
@@ -62,8 +88,7 @@ fn run() -> Result<(), Box<Error>> {
     }
 
     // state.print();
-    // state = midi_interface.set_state("note_priority", "Last", state).unwrap();
-    // state = midi_interface.set_state("play", "Note on", state).unwrap();
+    // state = midi_interface.set_state(state, "note_priority", "Last").unwrap();
     // state.print();
     Ok(())
 }
