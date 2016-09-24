@@ -30,8 +30,8 @@ in the future.
 ## Questions and issues
 
 Use Github's issue tracker for bug or feature requests. [Drop me
-a line](jakub.matraszek@gmail.com) if you want to ask about anything that
-is not a bug/feature request.
+a line](mailto:jakub.matraszek@gmail.com) if you want to ask about
+anything that is not a bug/feature request.
 
 ## License
 
