@@ -24,72 +24,41 @@ fn run() -> Result<(), Box<Error>> {
     let mut midi_interface = Interface::new();
     state = midi_interface.read_state(state).unwrap();
 
-    // state = midi_interface.set_state(state, "note_priority", "Last").unwrap();
     let rustbox = match RustBox::init(Default::default()) {
         Result::Ok(v) => v,
         Result::Err(e) => panic!("{}", e),
     };
 
     ui::print_state(&rustbox, &state);
+    rustbox.present();
     loop {
         match rustbox.poll_event(false) {
             Ok(rustbox::Event::KeyEvent(key)) => {
                 match key {
                     Key::Esc => { break; } // Quit
-                    Key::Char('n') => {
-                        ui::change_note_priority(&rustbox, &mut midi_interface, &mut state);
-                    },
-                    Key::Char('v') => {
-
-                    },
-                    Key::Char('p') => {
-
-                    },
-                    Key::Char('x') => {
-
-                    },
-                    Key::Char('q') => {
-
-                    },
-                    Key::Char('t') => {
-
-                    },
-                    Key::Char('o') => {
-
-                    },
-                    Key::Char('l') => {
-
-                    },
-                    Key::Char('e') => {
-
-                    },
-                    Key::Char('g') => {
-
-                    },
-                    Key::Char('y') => {
-
-                    },
-                    Key::Char('b') => {
-
-                    },
-                    Key::Char('r') => {
-
-                    },
-                    Key::Char('s') => {
-
-                    },
+                    Key::Char('n') => { ui::change_note_priority(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('v') => { ui::change_velocity_response(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('p') => { ui::change_play(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('q') => { ui::change_seq_retrig(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('x') => { ui::change_next_seq(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('o') => { ui::change_step_on(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('t') => { ui::change_step(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('l') => { ui::change_lfo_key_retrig(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('e') => { ui::change_env_legato_mode(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('g') => { ui::change_gate(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('y') => { ui::change_sync(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('b') => { ui::change_bend_range(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('r') => { ui::change_midi_recv_chan(&rustbox, &mut midi_interface, &mut state); },
+                    Key::Char('s') => { ui::change_midi_send_chan(&rustbox, &mut midi_interface, &mut state); },
                     _ => { }
                 }
                 ui::print_state(&rustbox, &state);
+                rustbox.present();
             },
             Err(e) => panic!("{}", e.description()),
             _ => { }
         }
     }
-
-    // state.print();
-    // state = midi_interface.set_state(state, "note_priority", "Last").unwrap();
-    // state.print();
     Ok(())
 }
 
