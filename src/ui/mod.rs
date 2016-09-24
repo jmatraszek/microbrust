@@ -1,6 +1,7 @@
 pub mod helpers;
 use rustbox;
-use rustbox::{Color, RustBox};
+use rustbox::{Color, Key, RustBox};
+use interface::Interface;
 use state::State;
 
 pub fn print_state(rustbox: &RustBox, state: &State) {
@@ -30,4 +31,28 @@ pub fn print_state(rustbox: &RustBox, state: &State) {
     rustbox.print(40, 15, rustbox::RB_NORMAL, Color::White, Color::Black, helpers::sync(&state).as_ref());
 
     rustbox.present();
+}
+
+pub fn change_note_priority<'a>(rustbox: &RustBox, midi_interface: &'a mut Interface, state: &'a mut State) {
+    rustbox.print(1, 17, rustbox::RB_BOLD, Color::White, Color::Black, "Select note priority value:");
+    rustbox.print(1, 18, rustbox::RB_NORMAL, Color::White, Color::Black, "1 - Low, 2 - Last, 3 - High.");
+    rustbox.present();
+    match rustbox.poll_event(false) {
+        Ok(rustbox::Event::KeyEvent(key)) => {
+            match key {
+                Key::Char('1') => {
+                    midi_interface.set_state(state, "note_priority", "Low").unwrap();
+                },
+                Key::Char('2') => {
+                    midi_interface.set_state(state, "note_priority", "Last").unwrap();
+                },
+                Key::Char('3') => {
+                    midi_interface.set_state(state, "note_priority", "High").unwrap();
+                },
+                _ => { }
+            }
+        },
+        Err(_) => {  },
+        _ => { }
+    }
 }

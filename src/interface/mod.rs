@@ -44,7 +44,7 @@ impl Interface {
         Ok(state)
     }
 
-    pub fn set_state<'a, 'b>(&'a mut self, mut state: State<'b>, param: &'b str, value: &'b str) -> Result<State<'b>, Box<Error>> {
+    pub fn set_state<'a, 'b>(&'a mut self, state: &'a mut State<'b>, param: &'b str, value: &'b str) -> Result<&State<'b>, Box<Error>> {
         let midi_out = try!(MidiOutput::new("Arturia Microbrute"));
         let out_port: u32 = Interface::get_midi_out_port(&midi_out);
         let mut conn_out = try!(midi_out.connect(out_port, "microbrute").map_err(|e| e.kind()));
