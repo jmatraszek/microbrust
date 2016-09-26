@@ -134,7 +134,11 @@ Taking a closer look at the packets pairs I noticed that they contain the "usual
 
 For the request there is only one byte left (except the usual ending byte: `0xf7`). After comparing ninth bytes in request and response packets I realized that in the request it is always greater by `1` than in the response... moreover the value of this byte in the response is the same as we used to specify the parameter in the requests we used to set its values!
 
-For example: the value identifying "Note priority" parameter is `0x0b`. This means that it is required to set the ninth byte of the request to `0x0c`. Requests for reading Microbrute data are fully reverse engineered now. I just needed to change the parameters a couple of times, request the data from Microbrute and sniff the packets to see how they changed. Doing that I observed that in the response the tenth byte is changing which indicated it has the values of a given parameter. The eight following bytes, from eleventh to eighteenth, are quite weird, as they usually have value `0x00`, only sometimes something different. Maybe it's some kind of checksum, but for now they seem insignificant. To summarize -- the request to obtain Microbrute's parameter's value has the following format:
+For example: the value identifying "Note priority" parameter is `0x0b`. This means that it is required to set the ninth byte of the request to `0x0c`. Requests for reading Microbrute data are fully reverse engineered now. I just needed to change the parameters a couple of times, request the data from Microbrute and sniff the packets to see how they changed. Doing that I observed that in the response the tenth byte is changing which indicated it has the values of a given parameter. The eight following bytes, from eleventh to eighteenth, are quite weird, as they usually have value `0x00`, only sometimes something different. Maybe it's some kind of checksum, but for now they seem insignificant.
+
+## Summary
+
+The request to obtain Microbrute's parameter's value has the following format:
 
 ```
 f0:00:20:6b:05:01:XX:00:YY:f7
