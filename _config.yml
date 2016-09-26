@@ -18,7 +18,7 @@ tagline: Microbrute Linux client
 email: jakub.matraszek@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Microbrute Linux client
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/microbrust" # the subpath of your site, e.g. /blog
 url: "http://matraszek.new/microbrust" # the base hostname & protocol for your site
 github_url: "https://github.com/jmatraszek/microbrust"
 twitter_username: kubaxvx
