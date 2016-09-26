@@ -16,6 +16,7 @@ First of all, I needed a Windows machine (or a Windows running on a VirtualBox) 
 I set up a capture process on a Windows machine as described on [USBPcap's website](http://desowin.org/usbpcap/tour.html). Step 2 contains a really useful tip I omitted at first: after identifying the root hub you will sniff on, disconnect the device, start sniffing and then connect the device. This will capture the USB enumeration (more on USB enumeration can be found in chapter 4 [here](http://s.eeweb.com/members/mark_harrington/answers/1333179451-USB_Complete_3rdEdition.pdf)) packets that are used for proper packet dissection in Wireshark. So I started sniffing, connected the device, launched the application and changed some settings.
 
 ### Getting hands dirty
+![Wireshark caputuring SysEx packets](wireshark.png)
 A quick look at the captured packets in Wireshark and I discovered that Microbrute uses MIDI SysEx protocol. It's nothing special for a synthesizer, after all. Knowing that, I could take a closer look. I used `tshark` with `sysex` filter to analyze captured packets and show only important data. First column represents the source, second the host and last one is the SysEx data.
 
 ```
