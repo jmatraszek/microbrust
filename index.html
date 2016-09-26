@@ -1,82 +1,49 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Microbrust by jmatraszek</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Microbrust</h1>
-      <h2 class="project-tagline">A Linux interface to Arturia Microbrute</h2>
-      <a href="https://github.com/jmatraszek/microbrust" class="btn">View on GitHub</a>
-      <a href="https://github.com/jmatraszek/microbrust/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/jmatraszek/microbrust/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+---
+layout: default
+---
 
-    <section class="main-content">
-      <h1>
-<a id="microbrust-a-linux-interface-to-arturia-microbrute" class="anchor" href="#microbrust-a-linux-interface-to-arturia-microbrute" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microbrust: A Linux interface to Arturia Microbrute</h1>
+<section class="main-content">
+  <h1>
+    <a id="microbrust-a-linux-interface-to-arturia-microbrute" class="anchor" href="#microbrust-a-linux-interface-to-arturia-microbrute" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microbrust: A Linux interface to Arturia Microbrute</h1>
 
-<h1>
-<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><img src="img/microbrust.gif" alt="microbrust">
-</h1>
+  <h1>
+    <a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><img src="img/microbrust.gif" alt="microbrust">
+  </h1>
 
-<h2>
-<a id="intrudoction" class="anchor" href="#intrudoction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Intrudoction</h2>
+  <h2>
+    <a id="intrudoction" class="anchor" href="#intrudoction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Intrudoction</h2>
 
-<p>Microbrust is a Linux interface to Arturia Microbrute written in Rust.</p>
+  <p>Microbrust is a Linux interface to Arturia Microbrute written in Rust.</p>
 
-<h2>
-<a id="disclaimer" class="anchor" href="#disclaimer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Disclaimer</h2>
+  <h2>
+    <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>I implemented this as a first project when learning Rust, so probably the
-code quiality is awful. Hopefully, it will look better in the future.</p>
+  <p>Clone and run <code>cargo run</code> in the project's directory. The UI is pretty
+  self-explanatory. Use <code>Escape</code> to exit.</p>
 
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+  <h2>
+    <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
 
-<p>Clone and run <code>cargo run</code> in the project's directory. The UI is pretty
-self-explanatory. Use <code>Escape</code> to exit.</p>
+  <p>Requires Rust, Cargo and ALSA to compile.</p>
 
-<h2>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
+  <h2>
+    <a id="quirks" class="anchor" href="#quirks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quirks</h2>
 
-<p>Requires Rust, Cargo and ALSA to compile.</p>
+  <p>The Microbrute has to be connected BEFORE running Microbrust. No
+  auto- or re-connecting right now. Microbrust will fail if you disconnect
+  Microbrute in the meantime. Sorry... but there is a chance I will fix this
+  in the future.</p>
 
-<h2>
-<a id="quirks" class="anchor" href="#quirks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quirks</h2>
+  <h2>
+    <a id="questions-and-issues" class="anchor" href="#questions-and-issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions and issues</h2>
 
-<p>The Microbrute has to be connected BEFORE running Microbrust. No
-auto- or re-connecting right now. Microbrust will fail if you disconnect
-Microbrute in the meantime. Sorry... but there is a chance I will fix this
-in the future.</p>
+  <p>Use Github's issue tracker for bug or feature requests. <a href="mailto:jakub.matraszek@gmail.com">Drop me
+    a line</a> if you want to ask about
+  anything that is not a bug/feature request.</p>
 
-<h2>
-<a id="questions-and-issues" class="anchor" href="#questions-and-issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions and issues</h2>
+  <h2>
+    <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 
-<p>Use Github's issue tracker for bug or feature requests. <a href="mailto:jakub.matraszek@gmail.com">Drop me
-a line</a> if you want to ask about
-anything that is not a bug/feature request.</p>
-
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-
-<p>You can check out the full license <a href="https://github.com/jmatraszek/microbrust/blob/master/LICENSE">here</a>
-This project is licensed under the terms of the <strong>GNU GPLv3.0</strong> license.</p>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/jmatraszek/microbrust">Microbrust</a> is maintained by <a href="https://github.com/jmatraszek">jmatraszek</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
-</html>
+  <p>You can check out the full license <a href="https://github.com/jmatraszek/microbrust/blob/master/LICENSE">here</a>.
+  This project is licensed under the terms of the <strong>GNU GPLv3.0</strong> license.</p>
+</section>
