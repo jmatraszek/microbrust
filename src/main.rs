@@ -13,21 +13,36 @@ use interface::Interface;
 use rustbox::{Key, RustBox};
 
 fn main() {
-    match run() {
-        Ok(_) => (),
-        Err(err) => println!("Error: {}", err.description())
-    }
-}
-
-fn run() -> Result<(), Box<Error>> {
-    let mut state = State::new();
-    let mut midi_interface = Interface::new();
-    state = midi_interface.read_state(state).unwrap();
-
     let rustbox = match RustBox::init(Default::default()) {
         Result::Ok(v) => v,
         Result::Err(e) => panic!("{}", e),
     };
+
+    loop {
+        match run(&rustbox) {
+            Ok(_) => { break },
+            Err(_) => {
+                ui::print_not_connected(&rustbox);
+                rustbox.present();
+                match rustbox.poll_event(false) {
+                    Ok(rustbox::Event::KeyEvent(key)) => {
+                        match key {
+                            Key::Esc => { break; } // Quit
+                            _ => { continue; }
+                        }
+                    },
+                    Err(e) => panic!("{}", e.description()),
+                    _ => { }
+                }
+            }
+        }
+    }
+}
+
+fn run(rustbox: &RustBox) -> Result<(), Box<Error>> {
+    let mut state = State::new();
+    let mut midi_interface = Interface::new();
+    state = try!(midi_interface.read_state(state));
 
     ui::print_state(&rustbox, &state);
     rustbox.present();

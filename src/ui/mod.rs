@@ -8,6 +8,11 @@ const BEND_RANGES: &'static [&'static str] = &["1", "2", "3", "4", "5", "6", "7"
 const MIDI_SEND_CHANNELS: &'static [&'static str] = &["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"];
 const MIDI_RECV_CHANNELS: &'static [&'static str] = &["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "All"];
 
+pub fn print_not_connected(rustbox: &RustBox) {
+    rustbox.print(1, 1, rustbox::RB_BOLD, Color::White, Color::Black, "Microbrute not connected.");
+    rustbox.print(1, 2, rustbox::RB_NORMAL, Color::White, Color::Black, "Quit with Escape or connect and press any other key.");
+}
+
 pub fn print_state(rustbox: &RustBox, state: &State) {
     rustbox.clear();
 
