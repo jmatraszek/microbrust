@@ -11,7 +11,7 @@ Microbrust is a Linux interface to Arturia Microbrute written in Rust.
 I implemented this as a first project when learning Rust, so probably the
 code quiality is awful. Hopefully, it will look better in the future.
 
-## License
+## Changelog
 
 You can check out the changelog
 [here](https://github.com/jmatraszek/microbrust/blob/master/CHANGELOG.md).
