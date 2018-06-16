@@ -51,9 +51,9 @@ pub fn change_note_priority<'a>(rustbox: &RustBox, midi_interface: &'a mut Inter
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "note_priority", "Low")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "note_priority", "Last")); },
-                Key::Char('3') => { try!(midi_interface.set_state(state, "note_priority", "High")); },
+                Key::Char('1') => { midi_interface.set_state(state, "note_priority", "Low")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "note_priority", "Last")?; },
+                Key::Char('3') => { midi_interface.set_state(state, "note_priority", "High")?; },
                 _ => { }
             }
         },
@@ -69,9 +69,9 @@ pub fn change_velocity_response<'a>(rustbox: &RustBox, midi_interface: &'a mut I
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "velocity_response", "/")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "velocity_response", "(")); },
-                Key::Char('3') => { try!(midi_interface.set_state(state, "velocity_response", ")")); },
+                Key::Char('1') => { midi_interface.set_state(state, "velocity_response", "/")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "velocity_response", "(")?; },
+                Key::Char('3') => { midi_interface.set_state(state, "velocity_response", ")")?; },
                 _ => { }
             }
         },
@@ -87,8 +87,8 @@ pub fn change_play<'a>(rustbox: &RustBox, midi_interface: &'a mut Interface, sta
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "play", "Note on")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "play", "Hold")); },
+                Key::Char('1') => { midi_interface.set_state(state, "play", "Note on")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "play", "Hold")?; },
                 _ => { }
             }
         },
@@ -104,9 +104,9 @@ pub fn change_seq_retrig<'a>(rustbox: &RustBox, midi_interface: &'a mut Interfac
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "seq_retrig", "Reset")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "seq_retrig", "Legato")); },
-                Key::Char('3') => { try!(midi_interface.set_state(state, "seq_retrig", "None")); },
+                Key::Char('1') => { midi_interface.set_state(state, "seq_retrig", "Reset")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "seq_retrig", "Legato")?; },
+                Key::Char('3') => { midi_interface.set_state(state, "seq_retrig", "None")?; },
                 _ => { }
             }
         },
@@ -122,9 +122,9 @@ pub fn change_next_seq<'a>(rustbox: &RustBox, midi_interface: &'a mut Interface,
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "next_seq", "End")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "next_seq", "Instant reset")); },
-                Key::Char('3') => { try!(midi_interface.set_state(state, "next_seq", "Instant continue")); },
+                Key::Char('1') => { midi_interface.set_state(state, "next_seq", "End")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "next_seq", "Instant reset")?; },
+                Key::Char('3') => { midi_interface.set_state(state, "next_seq", "Instant continue")?; },
                 _ => { }
             }
         },
@@ -140,8 +140,8 @@ pub fn change_step_on<'a>(rustbox: &RustBox, midi_interface: &'a mut Interface, 
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "step_on", "Clk")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "step_on", "Gate")); },
+                Key::Char('1') => { midi_interface.set_state(state, "step_on", "Clk")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "step_on", "Gate")?; },
                 _ => { }
             }
         },
@@ -157,10 +157,10 @@ pub fn change_step<'a>(rustbox: &RustBox, midi_interface: &'a mut Interface, sta
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "step", "1/4")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "step", "1/8")); },
-                Key::Char('3') => { try!(midi_interface.set_state(state, "step", "1/16")); },
-                Key::Char('4') => { try!(midi_interface.set_state(state, "step", "1/32")); },
+                Key::Char('1') => { midi_interface.set_state(state, "step", "1/4")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "step", "1/8")?; },
+                Key::Char('3') => { midi_interface.set_state(state, "step", "1/16")?; },
+                Key::Char('4') => { midi_interface.set_state(state, "step", "1/32")?; },
                 _ => { }
             }
         },
@@ -176,8 +176,8 @@ pub fn change_lfo_key_retrig<'a>(rustbox: &RustBox, midi_interface: &'a mut Inte
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "lfo_key_retrig", "On")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "lfo_key_retrig", "Off")); },
+                Key::Char('1') => { midi_interface.set_state(state, "lfo_key_retrig", "On")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "lfo_key_retrig", "Off")?; },
                 _ => { }
             }
         },
@@ -193,8 +193,8 @@ pub fn change_env_legato_mode<'a>(rustbox: &RustBox, midi_interface: &'a mut Int
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "env_legato_mode", "On")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "env_legato_mode", "Off")); },
+                Key::Char('1') => { midi_interface.set_state(state, "env_legato_mode", "On")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "env_legato_mode", "Off")?; },
                 _ => { }
             }
         },
@@ -210,9 +210,9 @@ pub fn change_gate<'a>(rustbox: &RustBox, midi_interface: &'a mut Interface, sta
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "gate", "Short")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "gate", "Medium")); },
-                Key::Char('3') => { try!(midi_interface.set_state(state, "gate", "Long")); },
+                Key::Char('1') => { midi_interface.set_state(state, "gate", "Short")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "gate", "Medium")?; },
+                Key::Char('3') => { midi_interface.set_state(state, "gate", "Long")?; },
                 _ => { }
             }
         },
@@ -228,9 +228,9 @@ pub fn change_sync<'a>(rustbox: &RustBox, midi_interface: &'a mut Interface, sta
     match rustbox.poll_event(false) {
         Ok(rustbox::Event::KeyEvent(key)) => {
             match key {
-                Key::Char('1') => { try!(midi_interface.set_state(state, "sync", "External")); },
-                Key::Char('2') => { try!(midi_interface.set_state(state, "sync", "Internal")); },
-                Key::Char('3') => { try!(midi_interface.set_state(state, "sync", "Auto")); },
+                Key::Char('1') => { midi_interface.set_state(state, "sync", "External")?; },
+                Key::Char('2') => { midi_interface.set_state(state, "sync", "Internal")?; },
+                Key::Char('3') => { midi_interface.set_state(state, "sync", "Auto")?; },
                 _ => { }
             }
         },
@@ -263,7 +263,7 @@ pub fn change_bend_range(rustbox: &RustBox, midi_interface: &mut Interface, stat
                         helpers::print_select_value_message(rustbox, "Bend range", "Select values using up and down arrows and press Enter to confirm.");
                     },
                     Key::Enter => {
-                        try!(midi_interface.set_state(state, "bend_range", BEND_RANGES[index as usize]));
+                        midi_interface.set_state(state, "bend_range", BEND_RANGES[index as usize])?;
                         break;
                     },
                     Key::Esc => {
@@ -304,7 +304,7 @@ pub fn change_midi_recv_chan(rustbox: &RustBox, midi_interface: &mut Interface, 
                         helpers::print_select_value_message(rustbox, "MIDI receive channel", "Select values using up and down arrows and press Enter to confirm.");
                     },
                     Key::Enter => {
-                        try!(midi_interface.set_state(state, "midi_recv_chan", MIDI_RECV_CHANNELS[index as usize]));
+                        midi_interface.set_state(state, "midi_recv_chan", MIDI_RECV_CHANNELS[index as usize])?;
                         break;
                     },
                     Key::Esc => {
@@ -345,7 +345,7 @@ pub fn change_midi_send_chan(rustbox: &RustBox, midi_interface: &mut Interface, 
                         helpers::print_select_value_message(rustbox, "MIDI send channel", "Select values using up and down arrows and press Enter to confirm.");
                     },
                     Key::Enter => {
-                        try!(midi_interface.set_state(state, "midi_send_chan", MIDI_SEND_CHANNELS[index]));
+                        midi_interface.set_state(state, "midi_send_chan", MIDI_SEND_CHANNELS[index])?;
                         break;
                     },
                     Key::Esc => {
