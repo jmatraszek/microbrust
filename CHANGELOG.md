@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2018-06-17
+### Fixed
+- Fix compiling on a recent versions of Rust
+- Use `?` operator instead of `try!` macro
+
 ## [1.1.0] - 2016-10-11
 ### Fixed
 - Do not crash when Microbrute is disconnected
